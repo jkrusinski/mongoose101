@@ -6,7 +6,7 @@ Mongoose JS is hands down the most widely used object-relational mapping (ORM) t
 As a developer, your main point of contact with the database will be through the Mongoose library. You do, however, still need to have MongoDB installed and running on your machine. Installation instructions vary for different operating systems so find which method is appropriate for you. For a list of all the installation options, click [here](https://www.mongodb.com/download-center#community). Below are a few common installation methods.
 
 #### Mac
-Install using Brew. If you don't have brew installed on your computer, install it [here](https://brew.sh).
+Install using Homebrew. If you don't have brew installed on your computer, install it [here](https://brew.sh).
 
 ``` bash
 brew update
@@ -39,3 +39,5 @@ sudo service mongod start
 sudo service mongod stop
 sudo service mongod restart
 ```
+### Graphical User Interface
+The included Mongo CLI tool requires that you know MongoDB's specific querying language. While some clever googling will likely lead you to the correct syntax, it's much easier to install a GUI to actually see the data you have stored in your database. [Robomongo](https://robomongo.org) is quite a popular one and has good installation instructions on their website. 
