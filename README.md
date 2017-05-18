@@ -161,9 +161,9 @@ There are many different options you can set for each data type. A list of all o
 - `enum`: Array, creates a validator that checks if the value exists in the given array.
 
 ###### Number
-- `min`: Number
-- `max`: Number
+- `min`: Number, creates a validator that checks if the value is greater than or equal to the given minimum.
+- `max`: Number, creates a validator that checks if the value is less than or equal to the given maximum.
 
 ###### Date
-- `min`: Date
-- `max`: Date
+- `min`: Date, creates a validator that checks if the value is greater than or equal to the given date.
+- `max`: Date, creates a validator that checks if the value is less than or equal to the given date.
