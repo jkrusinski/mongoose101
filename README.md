@@ -167,3 +167,33 @@ There are many different options you can set for each data type. A list of all o
 ###### Date
 - `min`: Date, creates a validator that checks if the value is greater than or equal to the given date.
 - `max`: Date, creates a validator that checks if the value is less than or equal to the given date.
+
+## Models
+The schemas that we have created so far are just the recipes that mongoose uses to enforce the structure of our documents. The schemas alone have no actual relation to the database. Mongoose models are created in order to tell mongoose which collection in the database corresponds with a specific schema. Take a look at the example below.
+
+``` javascript
+// User.js
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+
+  username: {
+    type: String,
+    unique: true,
+    required: true
+  },
+
+  password: {
+    type: String,
+    required: true
+  },
+
+  phone: Number,
+  admin: Boolean
+});
+
+module.exports = mongoose.model('user', userSchema);
+```
+
+We use the method `mongoose.model` to export the user model from the `User.js` file.
