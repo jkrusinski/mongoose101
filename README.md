@@ -66,16 +66,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  name: String,
+  username: String,
   password: String,
   phone: Number,
   admin: Boolean
 });
 ```
+
 To create a schema, pass a javascript object through mongoose's Schema constructor function. Notice that the values that declare what type each property on the document should contain are just [standard built-in javascript objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects).
 
 #### Simple Types
 The following javascript globals are valid schema types:
+
 ``` javascript
 {
   text: String,
@@ -87,10 +89,12 @@ The following javascript globals are valid schema types:
   objectId: Schema.Types.ObjectId
 }
 ```
+
 Notice the last two types are not actually javascript globals, but types provided by mongoose to allow for a variety of types and to reference mongoose ObjectId's respectively. We will get more into how Mongoose's ObjectId's work a little later.
 
 #### Nested Types
 Arrays of data are common when creating databases. If you assign a property to an empty array, mongoose will assume that its contents are mixed. In most cases you want arrays to contain a single type of data. To do that, just wrap the type in brackets like so:
+
 ``` javascript
 {
   arrayOfStrings: [String],
@@ -100,7 +104,9 @@ Arrays of data are common when creating databases. If you assign a property to a
   arrayOfObjectIds: [Schema.Types.ObjectId]
 }
 ```
+
 You can also nest data in objects, just like you would in all of your other javascript code. For example:
+
 ``` javascript
 {
   address: {
@@ -112,3 +118,30 @@ You can also nest data in objects, just like you would in all of your other java
   }
 }
 ```
+
+#### Options
+The real power that mongoose gives you for schema design is in its options. Take a look at the code below:
+
+``` javascript
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+
+  username: {
+    type: String,
+    unique: true,
+    required: true
+  },
+
+  password: {
+    type: String,
+    required: true
+  },
+
+  phone: Number,
+  admin: Boolean
+});
+```
+
+At first glance it may seem like `username` and `password` are both properties that contain nested data, but that is not actually the case. The `type` property is a special keyword that tells mongoose that this is an options object for the property pointing to it. The options object for `username` tells us three things about the property: it is of type `String`, it must be a unique value in the database, and it is required.
