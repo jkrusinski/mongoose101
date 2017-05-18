@@ -151,6 +151,7 @@ There are many different options you can set for each data type. A list of all o
 ###### All Types
 - `required`: boolean or function, if true adds a required validator for this property.
 - `default`: any or function, sets a default value for the property. If the value is a function, the return value of the function is used as a default.
+- `unique`: boolean, whether to define a unique index on this property.
 
 ###### String
 - `lowercase`: boolean, whether to always call `.toLowerCase()` on the value.
