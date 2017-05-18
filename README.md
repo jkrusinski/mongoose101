@@ -100,3 +100,15 @@ Arrays of data are common when creating databases. If you assign a property to a
   arrayOfObjectIds: [Schema.Types.ObjectId]
 }
 ```
+You can also nest data in objects, just like you would in all of your other javascript code. For example:
+``` javascript
+{
+  address: {
+    number: Number,
+    street: String,
+    city: String,
+    state: String,
+    zip: Number
+  }
+}
+```
