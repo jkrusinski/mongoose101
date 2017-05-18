@@ -145,3 +145,24 @@ var userSchema = new Schema({
 ```
 
 At first glance it may seem like `username` and `password` are both properties that contain nested data, but that is not actually the case. The `type` property is a special keyword that tells mongoose that this is an options object for the property pointing to it. The options object for `username` tells us three things about the property: it is of type `String`, it must be a unique value in the database, and it is required.
+
+There are many different options you can set for each data type. A list of all options can be found in mongoose's [documentation](http://mongoosejs.com/docs/schematypes.html). Below are some of the most common options.
+
+###### All Types
+- `required`: boolean or function, if true adds a required validator for this property.
+- `default`: any or function, sets a default value for the property. If the value is a function, the return value of the function is used as a default.
+
+###### String
+- `lowercase`: boolean, whether to always call `.toLowerCase()` on the value.
+- `uppercase`: boolean, whether to always call `.toUpperCase()` on the value.
+- `trim`: boolean, whether to always call `.trim()` on the value.
+- `match`: RegExp, creates a validator that checks if the value matches the regular expression.
+- `enum`: Array, creates a validator that checks if the value exists in the given array.
+
+###### Number
+- `min`: Number
+- `max`: Number
+
+###### Date
+- `min`: Date
+- `max`: Date
