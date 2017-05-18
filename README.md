@@ -196,4 +196,4 @@ var userSchema = new Schema({
 module.exports = mongoose.model('user', userSchema);
 ```
 
-We use the method `mongoose.model` to export the user model from the `User.js` file.
+We use the method `mongoose.model` to export the user model from the `User.js` file. Notice that the first argument of the method accepts the name of the model being created. This corresponds to the collection in the database. You might notice, however, that the collection stored in the database will be the plural of the first argument. So in the case of our example, this model with the name `user` will correlate to a collection in MongoDB with the name `users`. 
