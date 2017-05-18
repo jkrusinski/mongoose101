@@ -66,14 +66,37 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-
   name: String,
-
   password: String,
-
   phone: Number,
-
   admin: Boolean
-
 });
+```
+To create a schema, pass a javascript object through mongoose's Schema constructor function. Notice that the values that declare what type each property on the document should contain are just [standard built-in javascript objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects).
+
+#### Simple Types
+The following javascript globals are valid schema types:
+``` javascript
+{
+  text: String,
+  number: Number,
+  bool: Boolean,
+  date: Date,
+  array: [],
+  mixed: Schema.Types.Mixed,
+  objectId: Schema.Types.ObjectId
+}
+```
+Notice the last two types are not actually javascript globals, but types provided by mongoose to allow for a variety of types and to reference mongoose ObjectId's respectively. We will get more into how Mongoose's ObjectId's work a little later.
+
+#### Nested Types
+Arrays of data are common when creating databases. If you assign a property to an empty array, mongoose will assume that its contents are mixed. In most cases you want arrays to contain a single type of data. To do that, just wrap the type in brackets like so:
+``` javascript
+{
+  arrayOfStrings: [String],
+  arrayOfNumbers: [Number],
+  arrayOfBooleans: [Boolean],
+  arrayOfDates: [Date],
+  arrayOfObjectIds: [Schema.Types.ObjectId]
+}
 ```
