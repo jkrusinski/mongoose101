@@ -392,3 +392,11 @@ User.findByIdAndRemove(id, function(err) {
   console.log('User Deleted');
 });
 ```
+
+## Conclusion
+You are now able to do basic [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations with your database using mongoose. This guide just scratches the surface of all that mongoose can do for you. To learn more about mongoose, visit their [documentation](http://mongoosejs.com/). Below are just a few of the more advanced features that you should be sure to check out.
+
+- [Custom Validation](http://mongoosejs.com/docs/validation.html)
+- [Middleware](http://mongoosejs.com/docs/middleware.html)
+- [Document Population](http://mongoosejs.com/docs/populate.html)
+- [Promises with Mongoose](http://mongoosejs.com/docs/promises.html)
