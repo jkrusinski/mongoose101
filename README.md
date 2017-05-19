@@ -193,7 +193,64 @@ var userSchema = new Schema({
   admin: Boolean
 });
 
-module.exports = mongoose.model('user', userSchema);
+var User = mongoose.model('user', userSchema);
+
+module.exports = User;
 ```
 
-We use the method `mongoose.model` to export the user model from the `User.js` file. Notice that the first argument of the method accepts the name of the model being created. This corresponds to the collection in the database. You might notice, however, that the collection stored in the database will be the plural of the first argument. So in the case of our example, this model with the name `user` will correlate to a collection in MongoDB with the name `users`. 
+We use the method `mongoose.model` to export the user model from the `User.js` file. Notice that the first argument of the method accepts the name of the model being created. This corresponds to the collection in the database. You might notice, however, that the collection stored in the database will be the plural of the first argument. So in the case of our example, this model with the name `user` will correlate to a collection in MongoDB with the name `users`.
+
+## Queries
+Now that we have our model we can add, add, modify, and delete documents in our database.
+
+#### Create
+
+``` javascript
+var User = require('./User'); // import our User model
+
+// create an instance of our new user
+var newUser = User({
+  username: 'johndoe',
+  password: '12345',
+  phone: 5551235678
+});
+
+// save the new user to our database
+newUser.save(function(err) {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('New user created!');
+});
+```
+If a user with the username `johndoe` already existed in the database, or the `username` and `password` were not both included, mongoose would produce and error.
+
+#### Find All
+We pass an empty object to the find method to get all of the users in the database.
+
+``` javascript
+var User = require('./User');
+
+User.find({}, function(err, users) {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('All Users:', users);
+});
+```
+
+To search for a specific user, pass an object with the desired query parameters. Mongoose will return all documents that match this query.
+
+``` javascript
+var User = require('./User');
+
+User.find({ admin: true }, function(err, adminUsers) {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('Admin Users: ', adminUsers);
+});
+```
