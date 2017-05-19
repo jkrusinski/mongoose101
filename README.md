@@ -204,6 +204,7 @@ We use the method `mongoose.model` to export the user model from the `User.js` f
 Now that we have our model we can add, add, modify, and delete documents in our database.
 
 #### Create
+Use the model create a new document instance and save it to the database.
 
 ``` javascript
 var User = require('./User'); // import our User model
@@ -227,7 +228,7 @@ newUser.save(function(err) {
 If a user with the username `johndoe` already existed in the database, or the `username` and `password` were not both included, mongoose would produce and error.
 
 #### Find All
-We pass an empty object to the find method to get all of the users in the database.
+We pass an empty object to the `find` method to get all of the users in the database.
 
 ``` javascript
 var User = require('./User');
@@ -241,7 +242,7 @@ User.find({}, function(err, users) {
 });
 ```
 
-To search for a specific user, pass an object with the desired query parameters. Mongoose will return all documents that match this query.
+To search for a specific users, pass an object with the desired query parameters. Mongoose will return all documents that match this query.
 
 ``` javascript
 var User = require('./User');
@@ -252,5 +253,142 @@ User.find({ admin: true }, function(err, adminUsers) {
   }
 
   console.log('Admin Users: ', adminUsers);
+});
+```
+
+#### Find One
+To find a single document, use the `findOne` method. You can use the above `find` method to find a single document from a unique value, but it will still be returned wrapped in an array. Use `findOne` to get the single document returned to to without the array wrapper.
+
+``` javascript
+var User = require('./User');
+
+User.findOne({ username: 'johndoe' }, function(err, user) {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('johndoe: ', user);
+});
+```
+
+#### Find By ID
+MongoDB handles document IDs so you don't have to. Every document you insert in the database will be automatically assigned a unique ID. This is stored on the `_id` property of every document and usually will look something like `"507f1f77bcf86cd799439011"`.
+
+``` javascript
+var User = require('./User');
+
+// retrieve id from somewhere
+var id = getUserId();
+
+User.findById(id, function(err, user) {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('User with id ' + id + ':', user);
+});
+```
+
+#### Find And Update
+You can update documents directly from any of the find methods listed above. Just edit the document accordingly and send back to the database with the `save` method.
+
+``` javascript
+var User = require('./User');
+
+User.findOne({ username: 'johndoe' }, function(err, user) {
+  if (err) {
+    return console.log(err);
+  }
+
+  user.phone = 5552227766;
+
+  user.save(function(err) {
+    if (err) {
+      return console.log(err);
+    }
+
+    console.log('User updated');
+  });
+});
+```
+
+You can also use `findOneAndUpdate`.
+
+``` javascript
+var User = require('./User');
+
+User.findOneAndUpdate({ username: 'johndoe' }, { username: 'jamesdoe' }, function(err, user) {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('Updated User: ', user);
+});
+```
+
+Or use `findByIdAndUpdate`.
+
+``` javascript
+var User = require('./User');
+
+var id = getUserId();
+
+User.findByIdAndUpdate(id, { admin: true }, function(err, user) {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('Updated User: ', user);
+});
+```
+
+#### Delete
+You can delete documents from the database using the `remove` method directly on the document instance itself.
+
+``` javascript
+var User = require('./User');
+
+User.findOne({ username: 'johndoe' }, function(err, user) {
+  if (err) {
+    return console.log(err);
+  }  
+
+  user.remove(function(err) {
+    if (err) {
+      return console.log(err);
+    }
+
+    console.log('User Deleted');
+  });
+});
+```
+
+You can also use the special method `findOneAndRemove`.
+
+``` javascript
+var User = require('./User');
+
+User.findOneAndRemove({ username: 'johndoe' }, function(err) {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('User Deleted');
+});
+```
+
+Or use the special method `findByIdAndRemove`.
+
+``` javascript
+var User = require('./User');
+
+var id = getUserId();
+
+User.findByIdAndRemove(id, function(err) {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('User Deleted');
 });
 ```
